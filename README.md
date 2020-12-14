@@ -1,4 +1,4 @@
-# georest
+# Georest
 Ip to geo informations service with docker creation and restify application
 
 ## Introduction
@@ -31,7 +31,26 @@ And is possible to receve the JSON formatted informations using curl
 ```bash
 curl -vv "localhost:8080/json/8.8.8.8"
 ```
+## Rest api
+Path  | Protocols  |  Errors  |  Success
+------------- | ------------- | ------------- | -------------   
+/json/:ip  | GET,HEAD  | 422, {"error":"<Error message>"}  | 200, Json format below
+/country/:ip  | GET,HEAD  | 422, {"error":"<Error message>"}  | 200, {"country_code":"US"}
+/isp/:ip  | GET,HEAD  | 422, {"error":"<Error message>"}  | 200, {"country_code":"US"}
+/healthcheck  | GET  | ---  | 200, "Georest"
 
+## Json format
+```json
+{
+   "country_code":"<Two-character ISO 3166>",
+   "country_name":"<Country name ISO 3166.>",
+   "region_name":"<Region or state name.>",
+   "city_name":"<City nam>",
+   "latitude":<City latitude. Capital city latitude if unknown city>,
+   "longitude":<City longitude. Capital city longitude if unknown city>,
+   "isp":"<Autonomous system (AS) name>"
+}
+```
 ## License
 
 This module is released under the MIT license.
