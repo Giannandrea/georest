@@ -7,11 +7,11 @@ ENV NODEVER v12.9.1
 ENV NPM ./node-$NODEVER-linux-x64/lib/node_modules/npm/bin/npm-cli.js
 
 WORKDIR /app 
-COPY create_geodb.sql ./create_geodb.sql
-COPY import_geo.sql ./import_geo.sql
-COPY server.js ./server.js
-COPY import-isp.js ./import-isp.js
-COPY package.json ./package.json
+COPY app/create_geodb.sql ./create_geodb.sql
+COPY app/import_geo.sql ./import_geo.sql
+COPY app/server.js ./server.js
+COPY app/import-isp.js ./import-isp.js
+COPY app/package.json ./package.json
 #COPY IP2LOCATION-LITE-DB.CSV.ZIP ./IP2LOCATION-LITE-DB.CSV.ZIP
 #COPY IP2LOCATION-LITE-ASN.CSV.ZIP ./IP2LOCATION-LITE-ASN.CSV.ZIP
 
