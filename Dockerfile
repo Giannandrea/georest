@@ -11,6 +11,7 @@ COPY create_geodb.sql ./create_geodb.sql
 COPY import_geo.sql ./import_geo.sql
 COPY server.js ./server.js
 COPY import-isp.js ./import-isp.js
+COPY package.json ./package.json
 #COPY IP2LOCATION-LITE-DB.CSV.ZIP ./IP2LOCATION-LITE-DB.CSV.ZIP
 #COPY IP2LOCATION-LITE-ASN.CSV.ZIP ./IP2LOCATION-LITE-ASN.CSV.ZIP
 
@@ -18,7 +19,7 @@ RUN apt update && apt -y --no-install-recommends upgrade && apt install --no-ins
 	&& wget --no-check-certificate "$IP2LOCATION_URL/download/?token=$IP2LOCATION_TOKEN&file=DB5LITE" -O IP2LOCATION-LITE-DB.CSV.ZIP \
 	&& unzip IP2LOCATION-LITE-DB.CSV.ZIP && sed -i 's/\(.*\)"/\1",/' IP2LOCATION-LITE-DB5.CSV \
 	&& sqlite3 geo.db && sqlite3 geo.db < create_geodb.sql && sqlite3 geo.db < import_geo.sql \
-	&& npm install sqlite3 restify csv-parser && rm LICENSE_LITE.TXT README_LITE.TXT\
+	&& npm install && rm LICENSE_LITE.TXT README_LITE.TXT\
 	&& wget --no-check-certificate "$IP2LOCATION_URL/download/?token=$IP2LOCATION_TOKEN&file=DBASNLITE" -O IP2LOCATION-LITE-ASN.CSV.ZIP \
 	&& unzip IP2LOCATION-LITE-ASN.CSV.ZIP && node import-isp.js \
 	&& apt purge -y nodejs npm python2* python2* libpython2* libpython3* \
