@@ -49,6 +49,6 @@ server.get('/json/:ip', respond_json);
 server.head('/json/:ip', respond_json);
 server.get('/country/:ip',respond_country_code);
 server.head('/country/:ip',respond_country_code);
-server.head('/healthcheck',respond_healthcheck);
+server.get('/healthcheck',respond_healthcheck);
 
 server.listen(8080, () => console.log(`GeoRest running on ${server.name} listening at ${server.url}`));
