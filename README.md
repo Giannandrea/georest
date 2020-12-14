@@ -40,15 +40,27 @@ Path  | Protocols  |  Errors  |  Success
 /healthcheck  | GET  | ---  | 200, "Georest"
 
 ## Json format
+The informations contained in the Json are listed in the table below:
+Key  | value
+------------- | -------------
+country_code  | Two-character ISO 3166
+country_name  | Country name ISO 3166
+region_name  | Region or state name
+city_name  | City name
+latitude  | City latitude. Capital city latitude if unknown city
+longitude  | City longitude. Capital city longitude if unknown city
+isp  | Autonomous system (AS) name
+
+Json example
 ```json
 {
-   "country_code":"<Two-character ISO 3166>",
-   "country_name":"<Country name ISO 3166.>",
-   "region_name":"<Region or state name.>",
-   "city_name":"<City nam>",
-   "latitude":<City latitude. Capital city latitude if unknown city>,
-   "longitude":<City longitude. Capital city longitude if unknown city>,
-   "isp":"<Autonomous system (AS) name>"
+   "country_code":"US",
+   "country_name":"United States of America",
+   "region_name":"California",
+   "city_name":"Mountain View",
+   "latitude":37.405992,
+   "longitude":-122.078515,
+   "isp":"Google"
 }
 ```
 ## License
