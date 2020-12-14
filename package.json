@@ -1,0 +1,24 @@
+{
+  "name": "georest",
+  "version": "1.0.0",
+  "description": "Ip to geo informations service with docker creation and restify application",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Giannandrea/georest.git"
+  },
+  "author": "Mauro Giannandrea",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Giannandrea/georest/issues"
+  },
+  "homepage": "https://github.com/Giannandrea/georest#readme",
+  "dependencies": {
+    "restify": "^8.5.1",
+    "sqlite3": "^5.0.0"
+  }
+}
