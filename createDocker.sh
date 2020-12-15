@@ -30,5 +30,5 @@ fi
 
 echo "Building Docker image"
 docker build -t $image_tag --build-arg IP2LOCATION_TOKEN=$token .
-echo "Pulling image on Registry"
-docker pull $image_tag
+echo "Pushing image on Registry"
+docker push $image_tag
