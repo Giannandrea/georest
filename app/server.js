@@ -1,6 +1,7 @@
 const restify = require('restify');
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./geo.db');
+const randomip = require('random-ip');
 const SELECT_ALL_ELEMENTS = "country_code, country_name, region_name, city_name, latitude, longitude, isp"
 
 const ip2int = (ip) => ip.split('.').reduce(function(ipInt, octet) { return (ipInt<<8) + parseInt(octet, 10)}, 0) >>> 0;
@@ -54,6 +55,8 @@ const respond_isp = (req, res, next) => respond(req, res, next, "isp");
 
 const respond_healthcheck = (req, res, next) => res.send(200, "Georest");
 
+const respond_test = (req, res, next) => { req.params.ip = randomip('0.0.0.0', 0, 32); respond(req, res, next, SELECT_ALL_ELEMENTS);}
+
 // Routes get/head for the rest api "json" and "country"
 const server = restify.createServer();
 server.get('/json/:ip', respond_json);
@@ -61,6 +64,7 @@ server.head('/json/:ip', respond_json);
 server.get('/country/:ip',respond_country_code);
 server.head('/country/:ip',respond_country_code);
 server.get('/isp/:ip',respond_isp);
+server.get('/test/:ip',respond_test);
 server.head('/isp/:ip',respond_isp);
 server.get('/healthcheck',respond_healthcheck);
 
