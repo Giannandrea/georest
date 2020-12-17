@@ -22,7 +22,7 @@ RUN apt update && apt -y --no-install-recommends upgrade && apt install --no-ins
 	&& npm install && rm LICENSE_LITE.TXT README_LITE.TXT\
 	&& wget --no-check-certificate "$IP2LOCATION_URL/download/?token=$IP2LOCATION_TOKEN&file=DBASNLITE" -O IP2LOCATION-LITE-ASN.CSV.ZIP \
 	&& unzip IP2LOCATION-LITE-ASN.CSV.ZIP && node import-isp.js \
-	&& apt purge -y nodejs npm python2* python2* libpython2* libpython3* \
+	&& apt purge -y nodejs npm python2* python2* libpython2* libpython3* > /dev/null \
 	&& wget --no-check-certificate -nv https://nodejs.org/dist/$NODEVER/node-$NODEVER-linux-x64.tar.gz && tar zxf node-$NODEVER-linux-x64.tar.gz \
 	&& ln -s $PWD/node-$NODEVER-linux-x64/bin/node /usr/bin/node && ln -s $PWD/node-$NODEVER-linux-x64/bin/npm /usr/bin/npm \
 	&& rm -fr *.csv *CSV *.TXT *.ZIP *.zip *.sql setup_12.x node-v12.9.1-linux-x64.tar.gz && $NPM cache clean --force --loglevel=error \
