@@ -5,6 +5,7 @@ ENV IP2LOCATION_TOKEN=$IP2LOCATION_TOKEN
 ENV IP2LOCATION_URL="https://www.ip2location.com"
 ENV NODEVER v12.9.1
 ENV NPM ./node-$NODEVER-linux-x64/lib/node_modules/npm/bin/npm-cli.js
+ENV NODE_OPTIONS "--max-old-space-size=5120"
 
 WORKDIR /app 
 COPY app/create_geodb.sql ./create_geodb.sql
@@ -18,10 +19,12 @@ COPY app/package.json ./package.json
 RUN apt update && apt -y --no-install-recommends upgrade && apt install --no-install-recommends -y unzip sqlite3 wget nodejs npm \
 	&& wget --no-check-certificate "$IP2LOCATION_URL/download/?token=$IP2LOCATION_TOKEN&file=DB5LITE" -O IP2LOCATION-LITE-DB.CSV.ZIP \
 	&& unzip IP2LOCATION-LITE-DB.CSV.ZIP && sed -i 's/\(.*\)"/\1",/' IP2LOCATION-LITE-DB5.CSV \
-	&& sqlite3 geo.db && sqlite3 geo.db < create_geodb.sql && sqlite3 geo.db < import_geo.sql \
 	&& npm install && rm LICENSE_LITE.TXT README_LITE.TXT\
 	&& wget --no-check-certificate "$IP2LOCATION_URL/download/?token=$IP2LOCATION_TOKEN&file=DBASNLITE" -O IP2LOCATION-LITE-ASN.CSV.ZIP \
-	&& unzip IP2LOCATION-LITE-ASN.CSV.ZIP && node import-isp.js \
+	&& unzip IP2LOCATION-LITE-ASN.CSV.ZIP \
+	&& sed -n '/"-"/!p' IP2LOCATION-LITE-ASN.CSV | awk 'BEGIN { FS = "," } ; { print $1","$2","$5}' > IP2LOCATION-LITE-ASN-SMALL.CSV \
+	&& sqlite3 geo.db && sqlite3 geo.db < create_geodb.sql && sqlite3 geo.db < import_geo.sql \
+	#&& node import-isp.js \
 	&& apt purge -y nodejs npm python2* python2* libpython2* libpython3* > /dev/null \
 	&& wget --no-check-certificate -nv https://nodejs.org/dist/$NODEVER/node-$NODEVER-linux-x64.tar.gz && tar zxf node-$NODEVER-linux-x64.tar.gz \
 	&& ln -s $PWD/node-$NODEVER-linux-x64/bin/node /usr/bin/node && ln -s $PWD/node-$NODEVER-linux-x64/bin/npm /usr/bin/npm \

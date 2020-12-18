@@ -14,9 +14,16 @@ CREATE TABLE `ip2location_db`(
 `city_name` TEXT,
 `latitude` DOUBLE,
 `longitude` DOUBLE,
+PRIMARY KEY(`ip_to`)
+);
+
+CREATE TABLE `ip2location_ip`(
+`ip_from` INTEGER,
+`ip_to` INTEGER,
 `isp` TEXT,
 PRIMARY KEY(`ip_to`)
 );
+
 COMMIT;
 PRAGMA ignore_check_constraints = ON;
 PRAGMA foreign_keys = ON;
