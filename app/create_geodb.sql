@@ -24,6 +24,25 @@ CREATE TABLE `ip2location_ip`(
 PRIMARY KEY(`ip_to`)
 );
 
+CREATE TABLE `ipv62location_db`(
+`ip_from` CHAR(39),
+`ip_to` CHAR(39),
+`country_code` CHAR(2),
+`country_name` TEXT,
+`region_name` TEXT,
+`city_name` TEXT,
+`latitude` DOUBLE,
+`longitude` DOUBLE,
+PRIMARY KEY(`ip_to`)
+);
+
+CREATE TABLE `ipv62location_isp`(
+`ip_from` CHAR(39),
+`ip_to` CHAR(39),
+`isp` TEXT,
+PRIMARY KEY(`ip_to`)
+);
+
 COMMIT;
 PRAGMA ignore_check_constraints = ON;
 PRAGMA foreign_keys = ON;

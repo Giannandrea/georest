@@ -1,6 +1,6 @@
 {
   "name": "georest",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "description": "Ip to geo informations service with docker creation and restify application",
   "main": "server.js",
   "scripts": {
@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/Giannandrea/georest#readme",
   "dependencies": {
-    "csv-parser": "^3.0.0",
+    "bignumber.js": "^9.0.1",
     "random-ip": "0.0.1",
     "restify": "^8.5.1",
     "sqlite3": "^5.0.0"
