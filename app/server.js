@@ -76,8 +76,10 @@ const respond = async (req, res, next, select_items, ip_version) => {
 // ---- requests endpoints ----- 
 
 const respond_json = (req, res, next) => {
-	if (/^(\d{1,3}\.){3}\d{1,3}$/.test(req.params.ip)) { respond(req, res, next, SELECT_ALL_ELEMENTS_V4, 4); }
-	if (/^((\d|\w){1,4}:){1,7}(\d|\w){1,4}$/.test(req.params.ip)) {respond(req, res, next, SELECT_ALL_ELEMENTS_V6, 6); }
+	let malformed = true;
+	if (/^(\d{1,3}\.){3}\d{1,3}$/.test(req.params.ip)) { malformed = false; respond(req, res, next, SELECT_ALL_ELEMENTS_V4, 4); }
+	if (/^((\d|\w){1,4}:){1,7}(\d|\w){1,4}$/.test(req.params.ip)) { malformed = false; respond(req, res, next, SELECT_ALL_ELEMENTS_V6, 6); }
+	if (malformed == true) { res.send(400, "Error"); }
 }
 
 const respond_country_code = (req, res, next) => respond(req, res, next, "country_code");
