@@ -1,4 +1,5 @@
 const restify = require('restify');
+const corsMiddleware = require('restify-cors-middleware')
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./geo.db');
 const randomip = require('random-ip');
@@ -92,6 +93,15 @@ const respond_test = (req, res, next) => { req.params.ip = randomip('0.0.0.0', 0
 
 // Routes get/head for the rest api "json" and "country"
 const server = restify.createServer();
+const cors = corsMiddleware({
+  preflightMaxAge: 5, //Optional
+  origins: ['*'],
+  allowHeaders: ['*','token'],
+  exposeHeaders: ['*','token']
+})
+server.pre(cors.preflight)
+server.use(cors.actual)
+
 server.get('/json/:ip', respond_json);
 server.head('/json/:ip', respond_json);
 server.get('/country/:ip',respond_country_code);
