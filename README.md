@@ -1,6 +1,6 @@
 # Georest
 Ip to geo informations service with docker creation and restify application.
-- IPv4 resolution is fully supported
+- IPv4 resolution is fully supported.
 - IPv6 is early implemented and considering the size of ip and databases extensive tests are required. ISP resolution is not completed.
 
 ## Introduction
